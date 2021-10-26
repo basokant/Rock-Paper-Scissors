@@ -1,13 +1,11 @@
 function computerPlay() {
-    let moves = ["Rock", "Paper", "Scissors"];
-    let play = ~~(Math.random() * 3);
-    return moves[play];
+    const moves = ["Rock", "Paper", "Scissors"];
+    let play_index = ~~(Math.random() * 3);
+    return moves[play_index];
 }
 
-console.log(computerPlay());
-
 function playRound(playerSelection, computerSelection) {
-    let score;
+    let score, str;
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1).toLowerCase();
 
     if (playerSelection == computerSelection) {
@@ -35,12 +33,40 @@ function playRound(playerSelection, computerSelection) {
     }
 
     if (score == 1) {
-        return `You Win! ${playerSelection} beats ${computerSelection}`;
+        str = `You Win! ${playerSelection} beats ${computerSelection}`;
     } else if (score == -1) {
-        return `You Lose! ${computerSelection} beats ${playerSelection}`
-    } else if (score == 1) {
-        return "You Tie!"
+        str = `You Lose! ${computerSelection} beats ${playerSelection}`
+    } else if (score == 0) {
+        str = "You Tie!"
     } else {
-        return "Something went wrong. Try again."
+        str = "Something went wrong. Try again."
+    }
+
+    return {
+        message: str,
+        outcome: score
     }
 }
+
+// TEST playRound();
+// const playerSelection = "rock";
+// const computerSelection = computerPlay();
+// console.log(playRound(playerSelection, computerSelection));
+
+function game() {
+    let score = [0,0]
+    for (i = 0; i < 5; i++) {
+        let playerSelection = prompt(`Round ${i + 1}: What is your move?`);
+        const computerSelection = computerPlay();
+        let round = playRound(playerSelection, computerSelection);
+
+        console.log(round.message);
+        
+        if (round.outcome == 1) score[0]++;
+        else if (round.outcome == -1) score[1]++;
+
+        console.log(`Player: ${score[0]}, Computer: ${score[1]}`);
+    }
+}
+
+game();
