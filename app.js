@@ -57,7 +57,7 @@ function game() {
     let score = [0,0]
     for (i = 0; i < 5; i++) {
         let playerSelection = prompt(`Round ${i + 1}: What is your move?`);
-        const computerSelection = computerPlay();
+    const computerSelection = computerPlay();
         let round = playRound(playerSelection, computerSelection);
 
         console.log(round.message);
