@@ -33,13 +33,13 @@ function playRound(playerSelection, computerSelection) {
     }
 
     if (score == 1) {
-        str = `You Win! ${playerSelection} beats ${computerSelection}`;
+        str = `You Win! ${playerSelection} beats ${computerSelection}.`;
     } else if (score == -1) {
-        str = `You Lose! ${computerSelection} beats ${playerSelection}`
+        str = `You Lose! ${computerSelection} beats ${playerSelection}.`;
     } else if (score == 0) {
-        str = "You Tie!"
+        str = "You Tie!";
     } else {
-        str = "Something went wrong. Try again."
+        str = "Something went wrong. Try again.";
     }
 
     return {
@@ -53,20 +53,35 @@ function playRound(playerSelection, computerSelection) {
 // const computerSelection = computerPlay();
 // console.log(playRound(playerSelection, computerSelection));
 
-function game() {
-    let score = [0,0]
-    for (i = 0; i < 5; i++) {
-        let playerSelection = prompt(`Round ${i + 1}: What is your move?`);
+
+let gameScore = [0,0]
+const buttons = document.querySelectorAll(".btn");
+const resultContent = document.querySelector("#results");
+
+function game(e) {
     const computerSelection = computerPlay();
-        let round = playRound(playerSelection, computerSelection);
+    let playerSelection = e.target.id;
+    console.log(playerSelection);
+    let round = playRound(playerSelection, computerSelection);
+    console.log(round.message);
+    let winner = null;
 
-        console.log(round.message);
-        
-        if (round.outcome == 1) score[0]++;
-        else if (round.outcome == -1) score[1]++;
+    if (round.outcome == 1) gameScore[0]++;
+    else if (round.outcome == -1) gameScore[1]++;
 
-        console.log(`Player: ${score[0]}, Computer: ${score[1]}`);
+    if (gameScore[0] == 5) { 
+        winner = "Player";
+    } else if (gameScore[0] == 5) {
+        winner = "Computer";
+    }
+
+    if (!winner) {
+        resultContent.textContent = `${round.message} Player: ${gameScore[0]}, Computer: ${gameScore[1]}`;
+    } else {
+        resultContent.textContent = `${round.message} ${winner} won the game!`
     }
 }
 
-game();
+buttons.forEach((btn) => {
+    btn.addEventListener('click', game)
+});
