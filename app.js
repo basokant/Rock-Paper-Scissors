@@ -79,6 +79,8 @@ function game(e) {
         resultContent.textContent = `${round.message} Player: ${gameScore[0]}, Computer: ${gameScore[1]}`;
     } else {
         resultContent.textContent = `${round.message} ${winner} won the game!`
+        score[0] = 0;
+        score[1] = 0;
     }
 }
 
