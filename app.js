@@ -55,8 +55,9 @@ function playRound(playerSelection, computerSelection) {
 
 
 let gameScore = [0,0]
-const buttons = document.querySelectorAll(".btn");
-const resultContent = document.querySelector("#results");
+const buttons = document.querySelectorAll("img");
+const playerResult = document.querySelector(".player .score");
+const computerResult = document.querySelector(".computer .score")
 
 function game(e) {
     const computerSelection = computerPlay();
@@ -64,24 +65,12 @@ function game(e) {
     console.log(playerSelection);
     let round = playRound(playerSelection, computerSelection);
     console.log(round.message);
-    let winner = null;
 
     if (round.outcome == 1) gameScore[0]++;
     else if (round.outcome == -1) gameScore[1]++;
 
-    if (gameScore[0] == 5) { 
-        winner = "Player";
-    } else if (gameScore[0] == 5) {
-        winner = "Computer";
-    }
-
-    if (winner == null) {
-        resultContent.textContent = `${round.message} Player: ${gameScore[0]}, Computer: ${gameScore[1]}`;
-    } else {
-        resultContent.textContent = `${round.message} ${winner} won the game!`
-        gameScore[0] = 0;
-        gameScore[1] = 0;
-    }
+    playerResult.textContent = gameScore[0];
+    computerResult.textContent = gameScore[1];
 }
 
 buttons.forEach((btn) => {
