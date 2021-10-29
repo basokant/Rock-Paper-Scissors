@@ -1,32 +1,32 @@
 function computerPlay() {
-    const moves = ["Rock", "Paper", "Scissors"];
+    const moves = ["rock", "paper", "scissors"];
     let play_index = ~~(Math.random() * 3);
     return moves[play_index];
 }
 
 function playRound(playerSelection, computerSelection) {
     let score, str;
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1).toLowerCase();
+    playerSelection = playerSelection;
 
     if (playerSelection == computerSelection) {
         score = 0;
     } else {
-        if (playerSelection == "Rock") {
-            if (computerSelection == "Scissors") {
+        if (playerSelection == "rock") {
+            if (computerSelection == "scissors") {
                 score = 1;
-            } else if (computerSelection == "Paper") {
+            } else if (computerSelection == "paper") {
                 score = -1;
             }
-        } else if (playerSelection == "Paper") {
-            if (computerSelection == "Rock") {
+        } else if (playerSelection == "paper") {
+            if (computerSelection == "rock") {
                 score = 1;
-            } else if (computerSelection == "Scissors") {
+            } else if (computerSelection == "scissors") {
                 score = -1;
             }
-        } else if (playerSelection == "Scissors") {
-            if (computerSelection == "Paper") {
+        } else if (playerSelection == "scissors") {
+            if (computerSelection == "paper") {
                 score = 1;
-            } else if (computerSelection == "Rock") {
+            } else if (computerSelection == "rock") {
                 score = -1;
             }
         }
@@ -48,21 +48,19 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// TEST playRound();
-// const playerSelection = "rock";
-// const computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-
-
 let gameScore = [0,0]
-const buttons = document.querySelectorAll("img");
+const buttons = document.querySelectorAll(".moves img");
 const playerResult = document.querySelector(".player .score");
-const computerResult = document.querySelector(".computer .score")
+const computerResult = document.querySelector(".computer .score");
+const computerMove = document.querySelector(".complay");
 
 function game(e) {
     const computerSelection = computerPlay();
     let playerSelection = e.target.id;
-    console.log(playerSelection);
+    console.log(computerSelection);
+    computerMove.setAttribute("src", `./images/${computerSelection}.png`);
+    computerMove.style.visibility = "visible";
+
     let round = playRound(playerSelection, computerSelection);
     console.log(round.message);
 
